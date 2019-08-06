@@ -371,11 +371,13 @@ def send_hi(message):
 
 @bot.message_handler(content_types=['text'])
 def echo_all(message):
-    url_pos = message.text.find('https://soundcloud.com/')
-    if url_pos is not False:
-        bot.reply_to(message, "Скачиваю...")
-        parse_url(message.text[url_pos::], chat_id=message.chat.id)
-        bot.send_message(message.chat.id, "Приятного прослушивания😊")
+    desired_row = 'https://soundcloud.com/'
+    if desired_row in message.text:
+        url_pos = message.text.find(desired_row)
+        if url_pos is not False:
+            bot.reply_to(message, "Скачиваю...")
+            parse_url(message.text[url_pos::], chat_id=message.chat.id)
+            bot.send_message(message.chat.id, "Приятного прослушивания😊")
 
 
 bot.polling(none_stop=True)
